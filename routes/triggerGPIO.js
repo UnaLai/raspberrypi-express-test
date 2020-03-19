@@ -1,11 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const Gpio = require('onoff').Gpio;
+const LED = new Gpio(4, 'out'); 
 
-router.get('/trigger-gpio',(req,res,next)=>{
-	// res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">送出</button></form>')
+router.get('/open-trigger-gpio',(req,res,next)=>{
+	LED.writeSync(1);
+	res.statusCode('200')
 })
-router.post('/trigger-gpio',(req,res,next)=>{
-	// console.log(req)
-	// res.redirect('/')
+router.post('/close-trigger-gpio',(req,res,next)=>{
+	LED.writeSync(0);
+	res.statusCode('200')
 })
 module.exports = router;
