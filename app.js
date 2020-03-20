@@ -11,6 +11,13 @@ require('dotenv').config()
 // 解析 body
 app.use(express.json())
 
+// 允許任何
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); 
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // 引入 router
 app.use(triggerGPIORoute)
 app.use(envRoute)

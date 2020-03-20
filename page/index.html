@@ -76,7 +76,7 @@
         isOpen = !isOpen
         if (isOpen) {
           try {
-            await fetch('http://192.168.1.115:4000/open')
+            await fetch('/open')
             circle.classList.remove("close")
             circle.classList.add("open")
           } catch (e) {
@@ -84,7 +84,7 @@
           }
         } else {
           try {
-            await fetch('http://192.168.1.115:4000/close')
+            await fetch('/close')
             circle.classList.remove("open")
           circle.classList.add("close")
           } catch (e) {
