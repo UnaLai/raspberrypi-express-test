@@ -1,16 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const Gpio = require('onoff').Gpio;
-const LED = new Gpio(4, 'out','rising'); 
-const button = new Gpio(17, 'in','both',{debounceTimeout:300}); 
+const button = new Gpio(4, 'in','both',{debounceTimeout:300}); 
 
 
 router.get('/open',(req,res,next)=>{
-	LED.writeSync(1);
+	const LED1 = new Gpio(4, 'out'); 
+	LED1.writeSync(1);
 	res.send("ok")
 })
 router.get('/close',(req,res,next)=>{
-	LED.writeSync(0);
+	const LED1 = new Gpio(4, 'out'); 
+	LED1.writeSync(0);
 	res.send("ok")
 })
 
