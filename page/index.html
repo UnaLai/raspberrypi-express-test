@@ -1,18 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>控制樹莓派派派</title>
+  <style>
+    .container {
+      width: 200px;
+    }
+
+    .switch {
+      background-color: #808080a1;
+      border-radius: 25px;
+      width: 100px;
+      height: 50px;
+      margin: 0 auto;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .switch::before {
+      content: "OPEN";
+      display: block;
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 25%;
+      left: -50%;
+    }
+
+    .switch::after {
+      content: "CLOSE";
+      display: block;
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 25%;
+      right: -55%;
+    }
+
+    .circle {
+      background-color: #70d0e6;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      position: absolute;
+      transition: all 0.5s ease-out;
+    }
+
+    .circle.open {
+      left: 0;
+    }
+
+    .circle.close {
+      right: 0;
+    }
+  </style>
 </head>
+
 <body>
   <h1>Hello 來控制樹莓派</h1>
-  <input type="radio" id="open" name="control" value="open">
-  <label for="male">OPEN</label><br>
-  <input type="radio" id="close" name="control" value="close">
-  <label for="male">CLOSE</label><br>
+  <div class="container">
+    <div class="switch">
+      <div class="circle close"></div>
+    </div>
+  </div>
+  <script>
+    let controlSwitch = function () {
+      let isOpen = false
+      let switchItem = document.querySelector(".switch")
+      let circle = document.querySelector(".circle")
+
+      switchItem.addEventListener("click", async function (e) {
+        isOpen = !isOpen
+        if (isOpen) {
+          try {
+            await fetch('http://192.168.1.115:4000/open')
+            circle.classList.remove("close")
+            circle.classList.add("open")
+          } catch (e) {
+            alert(e)
+          }
+        } else {
+          try {
+            await fetch('http://192.168.1.115:4000/close')
+            circle.classList.remove("open")
+          circle.classList.add("close")
+          } catch (e) {
+            alert(e)
+          }
+        }
+      })
+    }();
+
+  </script>
 </body>
-<script>
-  
-</script>
+
 </html>
