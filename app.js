@@ -1,7 +1,7 @@
 require('dotenv').config()
 const app = require('./expess');
 var server = require('http').Server(app);
-let io = require('./socketControl')(server); 
+let io = require('./socket')(server); 
 require('./watchGPIO')(io)
 
 server.listen(4000, function () {
