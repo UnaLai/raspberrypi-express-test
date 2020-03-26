@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Gpio = require('onoff').Gpio;
-const button = new Gpio(4, 'in','both',{debounceTimeout:300}); 
+// const watchGPIO = new Gpio(4, 'in','both',{debounceTimeout:300}); 
 
 
 router.get('/open',(req,res,next)=>{
@@ -15,7 +15,7 @@ router.get('/close',(req,res,next)=>{
 	res.send("ok")
 })
 
-button.watch(function(err,value){
-	console.log(err,value)
-})
+// watchGPIO.watch(function(err,value){
+// 	console.log(err,value)
+// })
 module.exports = router;

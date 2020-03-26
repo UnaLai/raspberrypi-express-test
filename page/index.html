@@ -65,6 +65,8 @@
       <div class="circle close"></div>
     </div>
   </div>
+  <input type="text" class="enter">
+  <button>send some word to server</button>
   <script>
     let controlSwitch = function () {
       let isOpen = false
@@ -92,7 +94,24 @@
         }
       })
     }();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://192.168.1.115:4000');
+    socket.on('news', function (data) {
+      console.log(data);
+    });
+    socket.on('message', function (data) {
+      console.log(data);
+    });
 
+    let button = document.querySelector('button')
+    let enter = document.querySelector('.enter')
+    button.addEventListener("click", function(){
+      socket.emit('message', { message: enter.value });
+      enter.value=""
+    });
+    
   </script>
 </body>
 
